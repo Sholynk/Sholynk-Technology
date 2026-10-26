@@ -96,6 +96,7 @@ async function main() {
     assert(home.text.includes('Sholynk Tech'), 'the homepage is branded Sholynk Tech');
     assert(home.text.includes('/api/v1/subscriptions'), 'the newsletter form posts to the API proxy');
     assert(!/<script>(?![^<]*ld\+json)/.test(home.text.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')), 'the homepage has no inline scripts (CSP-safe)');
+    assert(home.text.includes('site-brand-mark') && home.text.includes('sholynk_icon.png'), 'the homepage header carries the Sholynk mark beside the wordmark');
 
     for (const [page, marker] of [
       ['/about', 'About'],
@@ -147,6 +148,9 @@ async function main() {
     // --- static assets ---------------------------------------------------------------
     const stylesheet = await get('/styles.css');
     assert(stylesheet.status === 200 && stylesheet.headers.get('content-type')?.includes('text/css'), 'the stylesheet ships');
+    assert(!stylesheet.text.includes("' Toggle theme'"), 'the sidebar theme toggle is an icon chip (no overflowing label)');
+    const themeScript = await get('/theme.js');
+    assert(themeScript.text.includes('ensureSidebarToggle') && themeScript.text.includes('theme-toggle--sidebar'), 'theme.js pins the sidebar toggle beside the sidebar mark');
     const logo = await get('/assets/brand/page_logo.png');
     assert(logo.status === 200 && logo.headers.get('content-type')?.includes('image/png'), 'brand assets ship');
     const cardImage = await get('/assets/cards/web-3/article_card_02.jpg');

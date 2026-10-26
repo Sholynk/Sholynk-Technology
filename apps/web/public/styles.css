@@ -295,6 +295,20 @@ code {
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
 }
 
+/* Brand lockup: the Sholynk favicon glyph sits beside the wordmark. */
+.site-header-inner > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.site-brand-mark {
+  display: block;
+  height: 2.25rem;
+  width: auto;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+}
+
 /* Social icon row in the header. */
 .social-links {
   display: flex;
@@ -4140,19 +4154,20 @@ textarea:focus {
   background: rgba(255,255,255,0.12);
   border-color: rgba(255,255,255,0.18);
 }
+/* Sidebar drawer toggle: icon-only chip beside the brand mark — never a
+   full-width labelled bar. */
 .theme-toggle--sidebar {
-  width: 100%;
-  height: 2.75rem;
-  border-radius: 0.85rem;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.92);
-  font-weight: 800;
-  gap: 0.55rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.85rem;
 }
-.theme-toggle--sidebar::after {
-  content: ' Toggle theme';
-  font-size: 0.82rem;
+.theme-toggle--sidebar:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Light-theme toggle on dark header must still be visible */
@@ -4741,7 +4756,7 @@ textarea:focus {
   font-family: "Playfair Display", Georgia, Cambria, "Times New Roman", serif;
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(1.45rem, 5.5vw, 1.75rem);
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
   letter-spacing: 0.015em;
   line-height: 1.15;
   color: #fff;

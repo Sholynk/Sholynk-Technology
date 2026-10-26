@@ -93,18 +93,27 @@
       }
     }
     btn.addEventListener('click', toggleTheme);
+  }
 
-    // Also add to sidebar for mobile (duplicate toggle there)
+  // Sidebar drawer: an icon-only theme chip right beside the sidebar brand
+  // mark (never a full-width labelled button). Runs on every page that has a
+  // sidebar, even when the header toggle was authored in the HTML.
+  function ensureSidebarToggle() {
     const sidebar = document.getElementById('sidebar');
-    if (sidebar && !sidebar.querySelector('[data-theme-toggle]')) {
-      const sideBtn = btn.cloneNode(true);
-      sideBtn.classList.add('theme-toggle--sidebar');
-      sideBtn.addEventListener('click', toggleTheme);
-      // place at top after h3
-      const h3 = sidebar.querySelector('h3');
-      if (h3) h3.after(sideBtn);
-      else sidebar.prepend(sideBtn);
-    }
+    if (!sidebar || sidebar.querySelector('[data-theme-toggle]')) return;
+
+    const sideBtn = document.createElement('button');
+    sideBtn.type = 'button';
+    sideBtn.className = 'theme-toggle theme-toggle--sidebar';
+    sideBtn.setAttribute('data-theme-toggle', '');
+    sideBtn.setAttribute('aria-label', 'Toggle theme');
+    sideBtn.setAttribute('title', 'Toggle theme');
+    sideBtn.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+    sideBtn.addEventListener('click', toggleTheme);
+    // Sit directly beside the sidebar icon (the brand mark).
+    const mark = sidebar.querySelector('.sidebar-brand-mark');
+    if (mark) mark.after(sideBtn);
+    else sidebar.prepend(sideBtn);
   }
 
   // Expose globally
@@ -112,6 +121,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     ensureToggle();
+    ensureSidebarToggle();
     // initial icon sync
     applyTheme(document.documentElement.getAttribute(ATTR) || getPreferred());
 
@@ -126,6 +136,7 @@
   // Also try immediately in case header already exists (e.g., admin)
   if (document.readyState !== 'loading') {
     ensureToggle();
+    ensureSidebarToggle();
   }
 
   // Cross-tab sync
