@@ -355,6 +355,22 @@ main {
 }
 .admin-header .ghost-button:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.3); color: #fff; }
 
+/* Round icon-only buttons on the always-black header (logout, etc.) —
+   visible in both themes with an accessible name via aria-label/title. */
+.admin-header .header-icon-button {
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border-radius: 999px;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.admin-header .header-icon-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.34);
+  color: #fff;
+}
+
 .danger-button {
   background: rgba(244, 33, 46, 0.1);
   color: var(--danger-ink);
