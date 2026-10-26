@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Playfair+Display:ital,wght@1,600&amp;display=swap" rel="stylesheet" />
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body class="auth-view">
@@ -20,13 +20,43 @@
           <img alt="" aria-hidden="true" class="site-brand-mark" height="36" src="/assets/brand/sholynk_icon.png" width="36" />
           <img alt="Sholynk logo" class="site-logo" height="24" src="/assets/brand/page_logo.png" width="120" />
         </a>
+        <div class="social-links" aria-label="Social links">
+          <a aria-label="WhatsApp" href="https://wa.me/qr/CV4VS7HDF2PHD1" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+          <a aria-label="Facebook" href="https://www.facebook.com/share/18xwSHcWr4/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+          <a aria-label="X / Twitter" href="https://x.com/sholynked" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+        </div>
         <nav class="site-nav" aria-label="Primary navigation">
           <a href="/">Home</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
         </nav>
+        <button class="hamburger" type="button" aria-label="Open navigation menu" aria-controls="sidebar" aria-expanded="false">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <img alt="" aria-hidden="true" class="sidebar-brand-mark" height="44" src="/assets/brand/sholynk_icon.png" width="44" />
+        <h3>Explore Sholynk</h3>
+      </div>
+      <ul>
+        <li class="highlighted"><a href="/">Home</a></li>
+        <li><a href="/?category=Technology">Technology</a></li>
+        <li><a href="/?category=AI%20Trends">AI</a></li>
+        <li><a href="/?category=Cryptocurrency">Cryptocurrency</a></li>
+        <li><a href="/?category=Web%203">Web 3</a></li>
+        <li><a href="/?category=Game">Game</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="sidebar-social">
+        <a aria-label="WhatsApp" href="https://wa.me/qr/CV4VS7HDF2PHD1" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+        <a aria-label="Facebook" href="https://www.facebook.com/share/18xwSHcWr4/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a aria-label="X / Twitter" href="https://x.com/sholynked" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+      </div>
+    </div>
 
     <main class="auth-main" id="main-content">
       <section class="auth-card" aria-labelledby="error-title">
@@ -46,6 +76,6 @@
       </div>
     </footer>
     <script src="/error.js"></script>
-      <script src="theme.js"></script>
+    <script src="/theme.js"></script>
   </body>
 </html>
