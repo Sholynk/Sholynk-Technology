@@ -1553,6 +1553,15 @@ noscript p {
   .table-scroll { margin-inline: -0.75rem; padding-inline: 0.75rem; }
   dialog { padding: 1.25rem 1rem; width: min(94vw, 32rem); }
   .table-card { min-height: 18rem; max-height: 22rem; }
+  /* Fit cards (Active sessions, Platform snapshot) carry ordinary page flow
+     rather than a data table: on mobile the compact cap must scroll its
+     overflow instead of hiding the last rows behind overflow:hidden. */
+  .table-card--fit {
+    min-height: 0;
+    max-height: 22rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 @media (max-width: 380px) {
   .admin-header { padding: 0.65rem 0.75rem; }
