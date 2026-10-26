@@ -171,6 +171,11 @@ async function main() {
     assert(!adminPage.text.includes('adminToken'), 'the legacy admin-token field is gone');
     assert(adminPage.text.includes('signOutBtn'), 'the dashboard has a session sign-out control');
 
+    const adminCss = await get('/admin/admin.css');
+    assert(adminCss.status === 200, 'the admin stylesheet ships');
+    const mobileBlocks = [...adminCss.text.matchAll(/@media \(max-width: 640px\) \{([\s\S]*?)\n\}/g)].map((m) => m[1]).join('\n');
+    assert(/\.table-card--fit\s*\{[^}]*overflow-y:\s*auto/.test(mobileBlocks), 'mobile fit cards (Active sessions, Platform snapshot) scroll instead of clipping');
+
     // --- signed-out visitors cannot read editorial data --------------------------------------
     const anonymous = await get('/api/v1/admin/analytics/overview');
     assert(anonymous.status === 401, 'analytics refuse anonymous callers');
