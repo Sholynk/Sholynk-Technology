@@ -4737,14 +4737,14 @@ textarea:focus {
 }
 
 .sidebar-brand-mark {
-  width: 2.85rem;
-  height: 2.85rem;
-  padding: 0.58rem;
-  border-radius: 0.95rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
   object-fit: contain;
-  background: linear-gradient(140deg, rgba(29, 155, 240, 0.34), rgba(255, 255, 255, 0.12));
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow: 0 10px 26px rgba(29, 155, 240, 0.28);
   flex-shrink: 0;
 }
 
@@ -4770,3 +4770,106 @@ textarea:focus {
     color: transparent;
   }
 }
+
+/* ==========================================================================
+   26. Dark mode — reading pages + contrast sweep
+   The base theme paints article typography with editorial dark ink and gives
+   some cards light surfaces. In dark mode those values turn into dark-on-dark
+   text (or glaring light islands). Flip every one of them so the whole site
+   reads cleanly on the near-black background.
+   ========================================================================== */
+
+/* Article page shell: the light editorial canvas becomes the dark one. */
+[data-theme="dark"] .article-view {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(29, 155, 240, 0.12), transparent 24rem),
+    #0a0a0a;
+}
+
+/* Article chrome: breadcrumb, kicker, title, standfirst, meta, captions */
+[data-theme="dark"] .article-breadcrumb { color: #8b98a5; }
+[data-theme="dark"] .article-breadcrumb a { color: #cfd9e3; }
+[data-theme="dark"] .article-breadcrumb a:hover { color: #fff; }
+[data-theme="dark"] .article-kicker { color: #8b98a5; }
+[data-theme="dark"] .article-kicker .category-label { color: #4bb0f5; }
+[data-theme="dark"] .article-header h1 { color: #f7f9f9; }
+[data-theme="dark"] .article-standfirst { color: #b6c2cf; }
+[data-theme="dark"] .article-meta { color: #8b98a5; }
+[data-theme="dark"] .article-meta a { color: #4bb0f5; }
+[data-theme="dark"] .article-meta a:hover { color: #7cc9f8; }
+[data-theme="dark"] .article-hero figcaption,
+[data-theme="dark"] .article-body figcaption { color: #8b98a5; }
+
+/* Table of contents + quick-answer/takeaway callouts sit on dark surfaces
+   (or become dark cards here) — their inner text must flip too. */
+[data-theme="dark"] .article-toc summary { color: #f7f9f9; }
+[data-theme="dark"] .article-toc summary i { color: #8b98a5; }
+[data-theme="dark"] .article-toc a { color: #8b98a5; }
+[data-theme="dark"] .article-toc a:hover { color: #fff; }
+[data-theme="dark"] .article-toc a[aria-current="location"] { color: #4bb0f5; }
+[data-theme="dark"] .article-rail-home { color: #8b98a5; }
+[data-theme="dark"] .article-answer,
+[data-theme="dark"] .article-takeaways {
+  background: var(--surface);
+  border-color: var(--line);
+  color: #cfd9e3;
+}
+[data-theme="dark"] .article-takeaways h2 { color: #f7f9f9; }
+[data-theme="dark"] .takeaway-list li { color: #b6c2cf; }
+
+/* Article body: prose, headings, emphasis, links, quotes, code, tables */
+[data-theme="dark"] .article-body { color: #cfd9e3; }
+[data-theme="dark"] .article-body > h2:first-child + p { color: #b6c2cf; }
+[data-theme="dark"] .article-body h2,
+[data-theme="dark"] .article-body h3,
+[data-theme="dark"] .article-body h4 { color: #f7f9f9; }
+[data-theme="dark"] .article-body strong { color: #fff; }
+[data-theme="dark"] .article-body a,
+[data-theme="dark"] .article-sources a { color: #4bb0f5; }
+[data-theme="dark"] .article-body a:hover,
+[data-theme="dark"] .article-sources a:hover { color: #7cc9f8; }
+[data-theme="dark"] .article-body p:has(> em:only-child) { color: #8b98a5; }
+[data-theme="dark"] .article-body blockquote { color: #b6c2cf; }
+[data-theme="dark"] .article-body pre {
+  background: #0b0d10;
+  border-color: var(--line);
+}
+[data-theme="dark"] .article-body th,
+[data-theme="dark"] .article-body td { border-color: var(--line); }
+[data-theme="dark"] .article-body th {
+  background: #111417;
+  color: #f7f9f9;
+}
+
+/* FAQ + sources */
+[data-theme="dark"] .article-faq > h2,
+[data-theme="dark"] .article-sources > h2 { color: #f7f9f9; }
+[data-theme="dark"] .article-faq summary { color: #cfd9e3; }
+[data-theme="dark"] .article-faq details p { color: #8b98a5; }
+[data-theme="dark"] .article-sources ol { color: #8b98a5; }
+[data-theme="dark"] .article-sources li span { color: #8b98a5; }
+
+/* Author card + end-of-article navigation */
+[data-theme="dark"] .article-author-card {
+  background: var(--surface);
+  border-color: var(--line);
+}
+[data-theme="dark"] .article-author-body h3 { color: #f7f9f9; }
+[data-theme="dark"] .article-author-bio { color: #b6c2cf; }
+[data-theme="dark"] .article-back,
+[data-theme="dark"] .article-category-link { color: #b6c2cf; }
+[data-theme="dark"] .article-back:hover,
+[data-theme="dark"] .article-category-link:hover { color: #fff; }
+[data-theme="dark"] .related-all-link { color: #b6c2cf; }
+[data-theme="dark"] .related-card-cta { color: #4bb0f5; }
+
+/* Comments + reactions (their containers already switch to dark surfaces) */
+[data-theme="dark"] .comment-body { color: #cfd9e3; }
+[data-theme="dark"] .comment-time { color: #8b98a5; }
+[data-theme="dark"] .comment-error { color: #ff7b72; }
+[data-theme="dark"] .reaction-count { background: rgba(255, 255, 255, 0.08); }
+
+/* Misc UI text that carried light-theme ink */
+[data-theme="dark"] .bento-feed .card-meta { color: #8b98a5; }
+[data-theme="dark"] .form-status { color: #3ddc84; }
+[data-theme="dark"] .form-status.is-error { color: #ff7b72; }

@@ -115,6 +115,7 @@ async function main() {
     assert(story.text.includes('article-toc'), 'the story carries its table of contents');
     assert(story.text.includes('../../styles.css'), 'the story rewrites assets for its URL depth');
     assert(story.text.includes('engagementRoot'), 'the story mounts the engagement widgets');
+    assert(story.text.includes('Playfair+Display'), 'the story head loads the sidebar display font like the homepage');
 
     const missing = await get('/articles/definitely-not-a-story/');
     assert(missing.status === 404 && missing.text.includes('Article not found'), 'an unknown story 404s as a document');
@@ -149,6 +150,8 @@ async function main() {
     const stylesheet = await get('/styles.css');
     assert(stylesheet.status === 200 && stylesheet.headers.get('content-type')?.includes('text/css'), 'the stylesheet ships');
     assert(!stylesheet.text.includes("' Toggle theme'"), 'the sidebar theme toggle is an icon chip (no overflowing label)');
+    assert(stylesheet.text.includes('[data-theme="dark"] .article-body'), 'dark mode flips the article prose ink instead of leaving it dark');
+    assert(/\.sidebar-brand-mark\s*\{[^}]*background:\s*none/.test(stylesheet.text), 'the sidebar mark renders as a bare icon (no colour tile)');
     const themeScript = await get('/theme.js');
     assert(themeScript.text.includes('ensureSidebarToggle') && themeScript.text.includes('theme-toggle--sidebar'), 'theme.js pins the sidebar toggle beside the sidebar mark');
     const logo = await get('/assets/brand/page_logo.png');
@@ -161,6 +164,7 @@ async function main() {
     // --- error page ---------------------------------------------------------------------
     const notFound = await get('/this-page-does-not-exist');
     assert(notFound.status === 404 && notFound.text.includes('Error 404'), 'unknown URLs answer with the styled 404');
+    assert(notFound.text.includes('id="sidebar"') && notFound.text.includes('class="hamburger"'), 'the styled 404 carries the same navbar/sidebar as the site');
   }
 
   if (wantsAdmin) {
