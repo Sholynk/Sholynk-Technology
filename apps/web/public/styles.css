@@ -4825,9 +4825,9 @@ textarea:focus {
   }
 }
 
-/* --- Sidebar brand: "Explore Sholynk" with the Sholynk mark -------------
-   The drawer is always dark, so the white icon artwork sits on a glass
-   tile and the heading gets an elegant display treatment. */
+/* --- Sidebar brand: the Tech. Sholynk wordmark with the Sholynk mark -----
+   The drawer is always dark, so the white icon artwork and the white
+   wordmark (the same logo as the navbar) sit directly on the dark lane. */
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -4845,6 +4845,18 @@ textarea:focus {
   box-shadow: none;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+/* The Tech. Sholynk wordmark (same artwork as the navbar logo) replaces the
+   old "Explore Sholynk" heading in the brand lane. */
+.sidebar-brand-logo {
+  display: block;
+  height: 1.45rem;
+  width: auto;
+  min-width: 0;
+  flex: 0 1 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
 }
 
 .sidebar h3,
