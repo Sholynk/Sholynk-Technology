@@ -108,6 +108,9 @@ async function main() {
       assert(response.status === 200 && response.text.toLowerCase().includes(marker.toLowerCase()), `${page} answers with its content`);
     }
 
+    const privacy = await get('/privacy_policy');
+    assert(privacy.text.includes('class="legal-table"') && privacy.text.includes('<thead>'), 'the privacy cookie table is a standard data table');
+
     // --- server-rendered article ---------------------------------------------
     const story = await get(`/articles/${SEEDED_STORY}/`);
     assert(story.status === 200, 'the seeded story renders at its clean URL');
@@ -152,6 +155,8 @@ async function main() {
     assert(!stylesheet.text.includes("' Toggle theme'"), 'the sidebar theme toggle is an icon chip (no overflowing label)');
     assert(stylesheet.text.includes('[data-theme="dark"] .article-body'), 'dark mode flips the article prose ink instead of leaving it dark');
     assert(/\.sidebar-brand-mark\s*\{[^}]*background:\s*none/.test(stylesheet.text), 'the sidebar mark renders as a bare icon (no colour tile)');
+    assert(stylesheet.text.includes('[data-theme="dark"] .about-name') && stylesheet.text.includes('[data-theme="dark"] .form-field label'), 'dark mode flips the About/Contact/Legal ink');
+    assert(/\.sidebar-close\s*\{[^}]*margin-left:\s*auto/.test(stylesheet.text), 'the sidebar close chip shares the brand lane');
     const themeScript = await get('/theme.js');
     assert(themeScript.text.includes('ensureSidebarToggle') && themeScript.text.includes('theme-toggle--sidebar'), 'theme.js pins the sidebar toggle beside the sidebar mark');
     const logo = await get('/assets/brand/page_logo.png');

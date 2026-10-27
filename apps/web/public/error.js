@@ -27,7 +27,11 @@
     closeButton.className = 'sidebar-close';
     closeButton.setAttribute('aria-label', 'Close navigation menu');
     closeButton.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
-    sidebar.prepend(closeButton);
+    // The close chip shares the top lane with the brand mark, theme toggle
+    // and "Explore Sholynk" heading.
+    const brandRow = sidebar.querySelector('.sidebar-brand');
+    if (brandRow) brandRow.appendChild(closeButton);
+    else sidebar.prepend(closeButton);
   }
 
   let backdrop = document.querySelector('.sidebar-backdrop');
