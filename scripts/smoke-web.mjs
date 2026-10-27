@@ -157,6 +157,7 @@ async function main() {
     assert(/\.sidebar-brand-mark\s*\{[^}]*background:\s*none/.test(stylesheet.text), 'the sidebar mark renders as a bare icon (no colour tile)');
     assert(stylesheet.text.includes('[data-theme="dark"] .about-name') && stylesheet.text.includes('[data-theme="dark"] .form-field label'), 'dark mode flips the About/Contact/Legal ink');
     assert(/\.sidebar-close\s*\{[^}]*margin-left:\s*auto/.test(stylesheet.text), 'the sidebar close chip shares the brand lane');
+    assert(home.text.includes('class="sidebar-brand-logo"') && stylesheet.text.includes('.sidebar-brand-logo'), 'the sidebar shows the Tech. Sholynk wordmark instead of the Explore heading');
     const themeScript = await get('/theme.js');
     assert(themeScript.text.includes('ensureSidebarToggle') && themeScript.text.includes('theme-toggle--sidebar'), 'theme.js pins the sidebar toggle beside the sidebar mark');
     const logo = await get('/assets/brand/page_logo.png');
