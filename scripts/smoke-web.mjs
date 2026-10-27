@@ -119,6 +119,8 @@ async function main() {
     assert(story.text.includes('../../styles.css'), 'the story rewrites assets for its URL depth');
     assert(story.text.includes('engagementRoot'), 'the story mounts the engagement widgets');
     assert(story.text.includes('Playfair+Display'), 'the story head loads the sidebar display font like the homepage');
+    assert(story.text.includes('site-brand-mark') && story.text.includes('sidebar-brand-logo'),
+      'the story carries the homepage navbar/sidebar branding');
 
     const missing = await get('/articles/definitely-not-a-story/');
     assert(missing.status === 404 && missing.text.includes('Article not found'), 'an unknown story 404s as a document');

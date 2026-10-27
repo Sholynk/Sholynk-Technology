@@ -30,6 +30,56 @@ describe('the article shell exists exactly once', () => {
   });
 });
 
+describe('the shared chrome stays in step across page templates', () => {
+  /** Slice one chrome region, from `open` through the closing `through`. */
+  function region(html: string, open: string, through: string): string {
+    const start = html.indexOf(open);
+    const end = html.indexOf(through, start + open.length);
+    expect(start, `chrome region ${open} missing`).toBeGreaterThan(-1);
+    expect(end, `chrome region ${open} never closes with ${through}`).toBeGreaterThan(-1);
+    return html.slice(start, end + through.length);
+  }
+
+  /** Whitespace/formatting noise and the homepage's self-highlight are the
+   *  only legitimate differences between the shared chrome blocks. */
+  function norm(html: string): string {
+    return html
+      .replace(/ ?class="highlighted"/g, '')
+      .replace(/ ?class="is-active"/g, '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s+>/g, '>')
+      .replace(/<\s+/g, '<')
+      .trim();
+  }
+
+  it('the long-form article template carries the homepage navbar, sidebar and footer', () => {
+    const home = read('apps/web/public/index.html');
+    // article.html is byte-identical to the worker shell (asserted above), so
+    // this pins the /articles/<slug>/ render to the homepage chrome too.
+    const article = read('apps/web/public/article.html');
+    for (const [open, through] of [
+      ['<header class="site-header">', '</header>'],
+      ['<div class="sidebar"', '</ul>'],
+      ['<div class="sidebar-social">', '</div>'],
+      ['<footer class="site-footer">', '</footer>'],
+    ] as const) {
+      expect(norm(region(article, open, through)), `${open} drifted from the homepage`).toBe(
+        norm(region(home, open, through)),
+      );
+    }
+  });
+
+  it('every sidebar shows the Tech. Sholynk wordmark instead of a heading', () => {
+    for (const page of readdirSync(path.join(ROOT, 'apps/web/public'))) {
+      if (!page.endsWith('.html')) continue;
+      const html = read(`apps/web/public/${page}`);
+      if (!html.includes('id="sidebar"')) continue;
+      expect(html, `${page} sidebar`).toContain('class="sidebar-brand-logo"');
+      expect(html, `${page} sidebar`).not.toContain('Explore Sholynk');
+    }
+  });
+});
+
 describe('the page Content-Security-Policy exists exactly once', () => {
   function workerPolicy(): string {
     // PAGE_CSP is a concatenation of string literals; collect everything
